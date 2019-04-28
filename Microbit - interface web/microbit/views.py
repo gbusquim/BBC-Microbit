@@ -4,17 +4,30 @@ import serial
 import random
 
 
-serialPort = None
-# Create your views here.
+serialPort = serial.Serial('com3',115200,timeout=0.25)
+serialPort.close()
+# Create your views here
+
 def home(request):
+    return render(request,'inicial.html')
+
+def iFrame(request):
+    #if serialPort.isOpen
+    return render(request,'iFrame.html')
+
+def ComSerial(request):
     global serialPort
-    serialPort = serial.Serial('com3',115200,timeout=1)
-    return render(request,'microbit/home.html')
+    #serialPort = serial.Serial('com3',115200,timeout=1)
+    return render(request,'home.html')
 
 def trataRequest(request):
-    valor = serialPort.read(1).decode("utf-8")
+    valor = ''
+    if not serialPort.isOpen():
+        serialPort.open()
+        valor = serialPort.read(4).decode("utf-8")
     #a = random.randint(1,101)
-    print(valor)
+        print(valor)
+        serialPort.close()
     return HttpResponse(valor)
 
 def fechaPorta(request):
