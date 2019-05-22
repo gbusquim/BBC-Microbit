@@ -16,11 +16,6 @@ app.CONNECT_TIMEOUT = 3000;
 app.microbit = {};
 app.microbit.UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 app.microbit.UART_RX_DATA = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
-app.microbit.LED_SERVICE = 'e95dd91d-251d-470a-a062-fa1922dfa9a8';
-app.microbit.LED_BITMAP = 'e95d7b77-251d-470a-a062-fa1922dfa9a8';
-app.microbit.LED_TEXT =   'e95d93ee-251d-470a-a062-fa1922dfa9a8';
-app.microbit.LED_TEXT_SPEED = 'e95d0d2d-251d-470a-a062-fa1922dfa9a8';
-app.microbit.LED_MATRIX = 'e95d7b77-251d-470a-a062-fa1922dfa9a8';
 var BLE_NOTIFICATION_UUID = '00002902-0000-1000-8000-00805f9b34fb';
 
 /**
@@ -51,7 +46,7 @@ app.showInfo = function(info)
 
 app.onStartButton = function()
 {
-	app.onStopButton();
+	//app.onStopButton();
 	app.startScan();
 	app.showInfo('Status: Scanning...');
 	app.startConnectTimer();
@@ -124,6 +119,7 @@ app.connectToDevice = function(device)
 		{
 			app.showInfo('Status: Connected - reading Microbit services...');
 			app.readServices(device);
+		
 		},
 		function(errorCode)
 		{
@@ -136,12 +132,12 @@ app.connectToDevice = function(device)
 app.readServices = function(device)
 {
 	device.readServices(
-		[app.microbit.LED_SERVICE,app.microbit.UART_SERVICE],
+		[app.microbit.UART_SERVICE],
 		function(device)
-    {app.device
-		app.showInfo('Connection established. Ready for input.');
-		document.getElementById("escreverMensagem").style.display="block";
-	    app.device = device;
+    {
+		app.showInfo('Comandos enviados.');
+			app.device = device;
+			app.sendMessage();
     },
 		function(errorCode)
 		{
@@ -150,16 +146,17 @@ app.readServices = function(device)
 		
 } 
 
-app.printPhoneModel = function()
+app.sendMessage = function()
 {
 
 	console.log("printando a mensagem");
 	//var a =[0x1,0x2,0,0x3,0x4];
 
-	//minhaString = localStorage.getItem("UART");
-	minhaString = "Lm2$LM200$"
+	minhaString = localStorage.getItem("UART");
+	//minhaString = "Lm2$LM200$"
 	console.log(minhaString);
 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(minhaString));
+	
 }
 
 app.writeCharacteristic = function(device, characteristicUUID, value) {
