@@ -1,4 +1,3 @@
-// JavaScript code for the Microbit Demo app.
 
 /**
  * Object that holds application data and functions.
@@ -114,9 +113,7 @@ app.deviceIsMicrobit = function(device)
 app.connectToDevice = function(device)
 {
 	app.showInfo('Connecting...');
-	setTimeout(function(){
-		//do what you need here
-	}, 500);
+	setTimeout(function(){	
 	device.connect(
 		function(device)
 		{
@@ -129,6 +126,7 @@ app.connectToDevice = function(device)
 			app.showInfo('Error: Connection failed: ' + errorCode + '.');
 			evothings.ble.reset();
 		});
+	}, 500);
 }
 
 
@@ -155,10 +153,7 @@ app.writeNotificationDescriptor = function(device, characteristicUUID)
 		},
 		function(errorCode)
 		{
-			// This error will happen on iOS, since this descriptor is not
-			// listed when requesting descriptors. On iOS you are not allowed
-			// to use the configuration descriptor explicitly. It should be
-			// safe to ignore this error.
+
 			console.log('Error: writeDescriptor: ' + errorCode + '.');
 		});
 }
@@ -167,22 +162,11 @@ app.startNotifications = function(device)
 {
 	app.showInfo('Status: Starting notifications...');
 
-	//app.readDeviceInfo(device);
 
-	// Due to https://github.com/evothings/cordova-ble/issues/30
-	// ... we have to do double work to make it function properly
-	// on both Android and iOS. This first part is only needed for Android
-	// and causes an error message on iOS that is safe to ignore.
-
-	// Set notifications to ON.
 	app.writeNotificationDescriptor(device, app.microbit.UART_TX_DATA);
 
 	app.showInfo('Exercicio obtido!');
-	// Set sensor period to 160 ms.
-	//var periodDataBuffer = new ArrayBuffer(2);
-	//new DataView(periodDataBuffer).setUint16(0, 160, true);
-	//app.writeCharacteristic(device, app.microbit.ACCELEROMETER_PERIOD, periodDataBuffer);
-	//app.writeCharacteristic(device, app.microbit.MAGNETOMETER_PERIOD, periodDataBuffer);
+
 
 
 
@@ -195,45 +179,9 @@ app.startNotifications = function(device)
 			console.log('Error: enableNotification: ' + errorCode + '.');
 		});
 	
-
-	// Start magnetometer bearing notification.
-	// device.enableNotification(
-	// 	app.microbit.MAGNETOMETER_BEARING,
-	// 	app.handleMagnetometerBearing,
-	// 	function(errorCode)
-	// 	{
-	// 		console.log('Error: enableNotification: ' + errorCode + '.');
-	// 	});
-
 }
 
 
-// app.sendMessage = function()
-// {
-
-// 	console.log("printando a mensagem");
-// 	//var a =[0x1,0x2,0,0x3,0x4];
-
-// 	minhaString = localStorage.getItem("UART");
-// 	//minhaString = "Lm2$LM200$"
-// 	console.log(minhaString);
-// 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(minhaString));
-	
-// }
-
-// app.writeCharacteristic = function(device, characteristicUUID, value) {
-// 	device.writeCharacteristic(
-// 		characteristicUUID,
-// 		new Uint8Array(value),
-// 		function()
-// 		{
-// 			console.log('writeCharacteristic '+characteristicUUID+' ok.');
-// 		},
-// 		function(errorCode)
-// 		{
-// 			console.log('Error: writeCharacteristic: ' + errorCode + '.');
-// 		});
-// }
 
 
 function utf8ArrayToStr(array, errorHandler) {
@@ -282,24 +230,25 @@ app.handleUART = function(data)
 	var duracaoExercicio = stringUART[1];
 
 	//pegando data atual
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	var yyyy = today.getFullYear();
+	var hoje = new Date();
+	var dia = hoje.getDate();
+	var mes = hoje.getMonth() + 1;
+	var ano = hoje.getFullYear();
 
-	today = mm + '/' + dd + '/' + yyyy;
+	hoje = dia + '/' + mes + '/' + ano;
 
 	app.value('NumPassos',numPassos);
 	app.value('DistanciaPercorrida',distanciaPercorrida);
 	app.value('DuracaoExercicio',duracaoExercicio);
-	var novoExercicio = [today,numPassos,distanciaPercorrida,duracaoExercicio]
-	var historico = localStorage.getItem("Historico");
+	var novoExercicio = [hoje,numPassos,distanciaPercorrida,duracaoExercicio]
+	var historico = JSON.parse(localStorage.getItem("Historico"));
 	if(historico==null)
 	{
 		historico = [];
 	}
 	historico.push(novoExercicio);
-	localStorage.setItem("Historico", historico);
+	
+	localStorage.setItem("Historico", JSON.stringify(historico));
 }
 
 app.value = function(elementId, value)

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Microbit LED</title>
+	<title>Microbit</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -47,32 +47,23 @@
 		Obter exercicio mais recente
 	</button>
 	<p>
-	Numpassos: <span id="NumPassos"></span>
+	Numero de passos dados: <span id="NumPassos"></span>
 </p>
 
 <p>
-	Dist:<span id="DistanciaPercorrida"></span>
+	Distancia percorrida:<span id="DistanciaPercorrida"></span>
 </p>
 
 <p>
-	Dur:<span id="DuracaoExercicio"></span>
+	Duracao do Exercicio:<span id="DuracaoExercicio"></span>
 </p>
 	<button onclick="app.onStopButton()" class="green">
 			Encerrar
 		</button>
-		<!-- <button onclick="app.printPhoneModel()" class="green">
-				Teste
-			</button> -->
+
 	<p>
 		<strong>Status da conexão:</strong> <span id="Status"></span>
 	</p>
-	<div id="escreverMensagem" style="display: none">
-
-	<!-- <p>
-		<button onclick="app.printPhoneModel()" class="charcoal">enviar!</button>
-	</p> -->
-
-</div>
 
 
 </body>
@@ -82,6 +73,7 @@
 function ApagarHistorico()
 {
 	localStorage.removeItem("Historico");
+	document.getElementById("Status").innerHTML="Historico removido!";
 }
 
 
