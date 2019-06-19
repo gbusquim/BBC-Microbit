@@ -20,36 +20,36 @@
 
 
 var terminalDiv = document.getElementById("div1");
-function LeComSerial()
-{
-    setInterval(function()
-    { 
-        $.ajax
-        ({
-            type: "GET",
-            url: "/meuRequest",
-            success: function(data)
-            {
-                if(data !='')
-                {
-                    if(data == 'AB' || data == 'BA')
-                        data = 'A + B'
-                    var para = document.createElement("p");
-                    var node = document.createTextNode(">> Você pressionou " + data +  " !");
-                    para.appendChild(node);
-                    var element = document.getElementById("div1");
-                    element.appendChild(para);
-                    shouldScroll = terminalDiv.scrollTop + terminalDiv.clientHeight === terminalDiv.scrollHeight;
-                    if (!shouldScroll) 
-                    {
-                        terminalDiv.scrollTop = terminalDiv.scrollHeight;
-                    }
+// function LeCom()
+// {
+//     setInterval(function()
+//     { 
+//         $.ajax
+//         ({
+//             type: "GET",
+//             url: "/meuRequest",
+//             success: function(data)
+//             {
+//                 if(data !='')
+//                 {
+//                     if(data == 'A+B')
+//                         data = 'A + B'
+//                     var para = document.createElement("p");
+//                     var node = document.createTextNode(">> Você pressionou " + data +  " !");
+//                     para.appendChild(node);
+//                     var element = document.getElementById("div1");
+//                     element.appendChild(para);
+//                     shouldScroll = terminalDiv.scrollTop + terminalDiv.clientHeight === terminalDiv.scrollHeight;
+//                     if (!shouldScroll) 
+//                     {
+//                         terminalDiv.scrollTop = terminalDiv.scrollHeight;
+//                     }
 
-                }
-            }    
-        });
-    }, 250);           
-}
-    window.onload = LeComSerial; 
+//                 }
+//             }    
+//         });
+//     }, 200);           
+// }
+    //window.onload = LeCom; 
     </script>
 </html>

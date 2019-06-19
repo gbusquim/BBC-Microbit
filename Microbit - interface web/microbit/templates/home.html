@@ -38,28 +38,28 @@
         </script>
 
         <script>
-                function solicitaDocumentosSegurado()
-                {
-                    var dataAnt = 'Teste';
-                    setInterval(function()
-                    { 
-                        $.ajax(
-                        {
-                            type: "GET",
-                            url: "/meuRequest",
-                            success: function(data)
-                            {
+        //         function solicitaDocumentosSegurado()
+        //         {
+        //             var dataAnt = 'Teste';
+        //             setInterval(function()
+        //             { 
+        //                 $.ajax(
+        //                 {
+        //                     type: "GET",
+        //                     url: "/meuRequest",
+        //                     success: function(data)
+        //                     {
                                 
-                                if(data != dataAnt && data !='')
-                                   dataAnt = data;
-                                document.getElementById("teste").innerHTML=dataAnt;
-                            },
+        //                         if(data != dataAnt && data !='')
+        //                            dataAnt = data;
+        //                         document.getElementById("teste").innerHTML=dataAnt;
+        //                     },
                             
-                        }
-                        ); 
-                    }, 1000);           
-                }
-        window.onload = solicitaDocumentosSegurado; 
+        //                 }
+        //                 ); 
+        //             }, 1000);           
+        //         }
+        // window.onload = solicitaDocumentosSegurado; 
         </script> 
 
 
