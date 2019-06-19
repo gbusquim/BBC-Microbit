@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from microbit.views import ComSerial,trataRequest,fechaPorta,home,iFrame
+from microbit.views import ComSerial,trataRequest,fechaPorta,Home,iFrame,EscreveRequest,Terminal
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('testgame/', iFrame),
-    path('', home),
+    path('', Home),
+    path('terminal/', Terminal),
     path('comSerial', ComSerial),
     path('fechaPorta', fechaPorta),
+    path('escreveRequest/',EscreveRequest),
     path('meuRequest/',trataRequest)
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
