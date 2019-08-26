@@ -29,13 +29,28 @@
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
 
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
+	<button style="position: absolute;top:10px;left:5px;" onclick="history.back()">
+		<img src="ui/images/arrow-back.png" width="20" height="20" />
+	</button>
 
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-	</header>
+
+	<table id="customers">
+		<tr>
+		  <th>Company</th>
+		  <th>Contact</th>
+		  <th>Country</th>
+		  
+		</tr>
+		<tr>
+		  <td>Alfreds Futterkiste</td>
+		  <td>Maria Anders</td>
+		  <td>Germany</td>
+		</tr>
+		<tr>
+		  <td>Centro comercial Moctezuma</td>
+		  <td>Francisco Chang</td>
+		  <td>Mexico</td>
+	  </table>
 
 	<h1>Historico de Exercicios!</h1>
 

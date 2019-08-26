@@ -29,24 +29,21 @@
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
 
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
 
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-	</header>
 
 	
-	<h1>MicroFit!</h1>
-	<button onclick="window.location.href='historico.html'" class="green">Historico de exercicios</button>
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroFit</h1>
 	<br>
+	<br>
+	<button onclick="window.location.href='historico.html'" class="botaoMenu">Histórico de exercícios</button>
+	<br>
+	<!-- <br>
 	<button onclick="ApagarHistorico()" class="red">Apagar Historico</button>
-	<br>
-	<button onclick="app.onStartButton()" class="green">
-		Obter exercicio mais recente
+	<br> -->
+	<button onclick="app.onStartButton()" class="botaoMenu">
+		Obter exercicios
 	</button>
-	<p>
+	<!-- <p>
 	Numero de passos dados: <span id="NumPassos"></span>
 </p>
 
@@ -59,14 +56,11 @@
 </p>
 	<button onclick="app.onStopButton()" class="green">
 			Encerrar
-		</button>
+		</button> -->
 
 	<p>
 		<strong>Status da conexão:</strong> <span id="Status"></span>
 	</p>
-
-
-</body>
 
 
 <script>
