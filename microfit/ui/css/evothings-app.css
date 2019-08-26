@@ -7,10 +7,10 @@ html, body {
 	margin: 0;
 	padding: 0;
 
-	font-family: 'Proxima Nova Regular', sans-serif;
+	font-family: 'Trebuchet MS', sans-serif;
 	font-weight: normal;
 
-	background: rgb(255,255,255);
+	background: #202567;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -20,6 +20,65 @@ html, body {
 	user-select: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
+
+/* Minhas Classes */
+.botaoMenu
+{
+	/*display: inline-block;
+	box-sizing: border-box;  Width & height includes padding & border. */
+
+	font-family: 'Trebuchet MS';
+	font-size: 10px;
+	/* line-height: 100%; */
+	text-transform: capitalize;
+	text-align: center;
+	/* position: absolute;
+    left: 25%; */
+	/* display: flex; 
+	justify-content: right;
+	left:80px; */
+	margin:auto;
+	display:block;
+	height: 50px;
+	width: 200px;
+	color: black;
+
+	/* margin: 0.5em 0 0.5em 0;
+	padding: 9px 13px 8px 13px; */
+
+	/*border-radius: 4px;*/
+	border: none;
+
+	box-shadow: none;
+
+	background-color: #e0e0e0;/* Default color: "Charcoal" */
+
+}
+
+#customers {
+	font-family: "Trebuchet MS",  sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  #customers td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+  }
+
+/*Fim Minhas Classes */
 body {
 	margin: 0 0.9em 0 0.9em;
 	font-size: 150%;
@@ -109,7 +168,7 @@ header button.back {
 	position: absolute;
 	left: 0;
 
-	height: 100%;
+	height: 10%;
 	margin: 0;
 	padding: 0 0.9em;
 
@@ -229,6 +288,7 @@ header h1 {
 	text-align: center;
 	vertical-align: middle;
 	color: #eee;
+	font-family: Trebuchet MS;
 
 	overflow: hidden;
 	white-space: nowrap;
@@ -368,12 +428,12 @@ input.btn-group + label,
 	margin: 0.5em 0 0.5em 0;
 	padding: 9px 13px 8px 13px;
 
-	border-radius: 4px;
+	/*border-radius: 4px;*/
 	border: none;
 
 	box-shadow: none;
 
-	background-color: #b9b9b9; /* Default color: "Charcoal" */
+	background-color: rgba(255, 255, 255, 0);/* Default color: "Charcoal" */
 }
 body > button,
 body > input.btn-group + label,
@@ -385,7 +445,7 @@ button:active, button.pressed,
 input.btn-group:active + label, input.btn-group + label:active,
 input.btn-group:checked + label {
 	box-shadow: inset 0 8px 9px -9px #000;
-	background-color: #9d9d9d; /* Default color: "Charcoal" */
+	/*background-color: #9d9d9d;  Default color: "Charcoal" */
 }
 button:focus,
 input.btn-group:focus {
@@ -468,6 +528,7 @@ h1 {
 	font-family: 'Proxima Nova Black';
 	font-size: 100%;
 	line-height: 1.5;
+	color: white;
 
 	vertical-align: middle;
 }
@@ -494,7 +555,7 @@ a {
 p {
 	margin: 0.4em 0 0.4em 0;
 	padding: 0;
-
+	color:white;
 	font-size: 63%;
 	line-height: 1.5;
 }
