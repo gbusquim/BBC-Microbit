@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Microbit LED</title>
+	<title>MicroHouse - Controle de Temperatura</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -23,32 +23,67 @@
 	<script src="libs/evothings/ui/ui.js"></script>
 	<script src="libs/evothings/easyble/easyble.js"></script>
 	<script src="libs/evothings/util/util.js"></script>
-
+	<script src="app.js"></script>
 
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
 
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
 
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-	</header>
+	<button style="position: absolute;top:10px;left:5px;" onclick="history.back()">
+		<img src="ui/images/arrow-back.png" width="20" height="20" />
+	</button>
 
-	<h1>Controle por Temperatura</h1>
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroHouse</h1>
+	<h3 style="font-family: Trebuchet MS;text-align:center;">Controle de Temperatura</h3>
+	<h2 style="font-family: Trebuchet MS;text-align:center;">Defina a temperatura limite para acender ou apagar o ar condicionado  </h2>
 
+	<!-- <p>Controle por Luminosidade</p> -->
+
+
+	<!-- <input type="checkbox" id="checkbox1" >Acender luz se luminosidade for menor do que:<br>
+	<input  type="text" id="myInput1" style="height:10px;" width="8" placeholder="Valor"><br>
+	<br>
+	<input type="checkbox" id="checkbox2" >Acender luz se luminosidade for maior do que:<br>
+	<input  type="text" id="myInput2" style="height:10px;" width="8" placeholder="Valor"><br>
+	<br>
+	<button onclick="SaveLuminosity()" class="green">Salvar</button> -->
+	<br>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/airOn.png" width="100" height="100"style="margin-right:20px" />
+		<input id="myInput1" type="number" placeholder="Temp. para acender"  class="numberInput"/>
+	</div>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/airOff.png" width="100" height="100"style="margin-right:20px" />
+		<input id="myInput2" type="number" placeholder="Temp. para apagar" class="numberInput" />
+	</div>
 	
-
-
-
+	<button onclick="SaveLuminosity()" class="botaoMenu" style="width: 200px" >
+		Salvar
+	</button>
+	
 
 </body>
 
 
 <script>
-    localStorage.removeItem("UART");
-   // document.getElementById("teste").innerHTML = b;
+	function SaveLuminosity()
+	{
+		var stringUART = localStorage.getItem("UART");
+		var valueInput1 = document.getElementById("myInput1").value;
+		var valueInput2 = document.getElementById("myInput2").value;
+		if(valueInput1!="")
+		{
+			stringUART = stringUART + "Tm" + valueInput1 + "$" 
+		}
+		if(valueInput2!="")
+		{
+			stringUART = stringUART + "TM" + valueInput2 + "$" 
+		}
+		localStorage.setItem("UART",stringUART);
+		window.location.href='index.html'
+		//var b = localStorage.getItem("key");
+		//document.getElementById("teste").innerHTML = b;
+	}
 </script>
 </html>

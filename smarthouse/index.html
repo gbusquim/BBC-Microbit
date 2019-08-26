@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Microbit LED</title>
+	<title>MicroHouse - Menu Principal</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -29,30 +29,28 @@
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
 
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
 
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-	</header>
 
-	
-	<h1>Microbit Smart House!</h1>
-	<button onclick="window.location.href='temperatura.html'" class="green">Controle por Temperatura</button>
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroHouse</h1>
 	<br>
-	<button onclick="window.location.href='luminosidade.html'" class="red">Controle por Luminosidade</button>
 	<br>
-	<button onclick="app.onStartButton()" class="green">
-		Enviar para Microbit
+	<button onclick="window.location.href='temperatura.html'" class="botaoMenu">Ajustar Temperatura</button>
+	<br>
+	<br>
+	<button onclick="window.location.href='luminosidade.html'" class="botaoMenu">Ajustar Luminosidade</button>
+	<br>
+	<br>
+	<button onclick="app.onStartButton()" class="botaoMenu" style="width: 200px" >
+		Enviar Comandos 
 	</button>
 
-	<button onclick="app.onStopButton()" class="green">
+	<!-- <button onclick="app.onStopButton()" class="botaoMenu">
 			Encerrar
-		</button>
+		</button> -->
 		<!-- <button onclick="app.printPhoneModel()" class="green">
 				Teste
 			</button> -->
+			<br>
 	<p>
 		<strong>Status da conexão:</strong> <span id="Status"></span>
 	</p>
