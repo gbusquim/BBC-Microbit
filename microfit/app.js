@@ -35,7 +35,7 @@ function onConnect(context) {
 
 app.onDeviceReady = function()
 {
-	app.showInfo("Este programa funcionará após o Microbit estiver conectado.");
+	//app.showInfo("Este programa funcionará após o Microbit estiver conectado.");
 }
 
 app.showInfo = function(info)
@@ -47,7 +47,7 @@ app.onStartButton = function()
 {
 	app.onStopButton();
 	app.startScan();
-	app.showInfo('Status: Scanning...');
+	//app.showInfo('Status: Scanning...');
 	app.startConnectTimer();
 }
 
@@ -57,7 +57,7 @@ app.onStopButton = function()
 	app.stopConnectTimer();
 	evothings.easyble.stopScan();
 	evothings.easyble.closeConnectedDevices();
-	app.showInfo('Status: Stopped.');
+	//app.showInfo('Status: Stopped.');
 }
 
 app.startConnectTimer = function()
@@ -67,8 +67,8 @@ app.startConnectTimer = function()
 	app.connectTimer = setTimeout(
 		function()
 		{
-			app.showInfo('Status: Scanning... ' +
-				'Please start the Microbit.');
+			//app.showInfo('Status: Scanning... ' +
+			//	'Please start the Microbit.');
 		},
 		app.CONNECT_TIMEOUT)
 }
@@ -86,7 +86,7 @@ app.startScan = function()
 			// Connect if we have found an Microbit.
 			if (app.deviceIsMicrobit(device))
 			{
-				app.showInfo('Status: Device found: ' + device.name + '.');
+				app.showInfo('Dispositivo encontrado, enviando comandos...');
 				evothings.easyble.stopScan();
 				app.connectToDevice(device);
 				app.stopConnectTimer();
@@ -94,7 +94,7 @@ app.startScan = function()
 		},
 		function(errorCode)
 		{
-			app.showInfo('Error: startScan: ' + errorCode + '.');
+			app.showInfo('A conexão não foi estabelecida, por favor tente novamente.');
 		});
 }
 
@@ -117,16 +117,16 @@ app.connectToDevice = function(device)
 	device.connect(
 		function(device)
 		{
-			app.showInfo('Status: Connected - reading Microbit services...');
+			//app.showInfo('Status: Connected - reading Microbit services...');
 			app.readServices(device);
 		
 		},
 		function(errorCode)
 		{
-			app.showInfo('Error: Connection failed: ' + errorCode + '.');
+			app.showInfo('A conexão não foi estabelecida, por favor tente novamente.');
 			evothings.ble.reset();
 		});
-	}, 500);
+	}, 1000);
 }
 
 
@@ -160,24 +160,25 @@ app.writeNotificationDescriptor = function(device, characteristicUUID)
 
 app.startNotifications = function(device)
 {
-	app.showInfo('Status: Starting notifications...');
+	//app.showInfo('Status: Starting notifications...');
 
 
 	app.writeNotificationDescriptor(device, app.microbit.UART_TX_DATA);
 
-	app.showInfo('Exercicio obtido!');
+	app.showInfo('Exercícios obtidos!');
 
 
 
 
 	//UART
+	setTimeout(function(){
 	device.enableNotification(
 		app.microbit.UART_TX_DATA,
 		app.handleUART,
 		function(errorCode)
 		{
 			console.log('Error: enableNotification: ' + errorCode + '.');
-		});
+		});},1000);
 	
 }
 
@@ -223,38 +224,45 @@ function utf8ArrayToStr(array, errorHandler) {
 
 app.handleUART = function(data)
 {
-	var stringUART = utf8ArrayToStr(data);
-	var stringUART = stringUART.split("$");
-	var numPassos = stringUART[0];
-	var distanciaPercorrida = stringUART[0]*0.82;
-	var duracaoExercicio = stringUART[1];
-
 	//pegando data atual
 	var hoje = new Date();
 	var dia = hoje.getDate();
 	var mes = hoje.getMonth() + 1;
 	var ano = hoje.getFullYear();
-
-	hoje = dia + '/' + mes + '/' + ano;
-
-	app.value('NumPassos',numPassos);
-	app.value('DistanciaPercorrida',distanciaPercorrida);
-	app.value('DuracaoExercicio',duracaoExercicio);
-	var novoExercicio = [hoje,numPassos,distanciaPercorrida,duracaoExercicio]
-	var historico = JSON.parse(localStorage.getItem("Historico"));
-	if(historico==null)
-	{
-		historico = [];
-	}
-	historico.push(novoExercicio);
 	
-	localStorage.setItem("Historico", JSON.stringify(historico));
+	var dataAtual = dia + '/' + mes + '/' + ano;
+
+	//pegando dados enviados por bluetooth
+	var stringUART = utf8ArrayToStr(data);
+	stringUART = stringUART.split(",");
+	stringUART = stringUART.slice(0,stringUART.length-1);
+	
+
+	stringUART.forEach
+	(
+		function (element)
+		{
+			console.log(element)
+			var exercicioCorr = element.split("$");
+			var distanciaPercorrida = exercicioCorr[0]*0.82;
+			var duracaoSegundosExercicio = parseInt(exercicioCorr[1]);
+			var duracaoMinutosExercicio = Math.floor(duracaoSegundosExercicio / 60);
+			var duracaoExercicio = duracaoMinutosExercicio.toString() + "m " + duracaoSegundosExercicio.toString() + "s";
+			
+			var novoExercicio = [dataAtual,distanciaPercorrida,duracaoExercicio]
+			var historico = JSON.parse(localStorage.getItem("Historico"));
+			if(historico==null)
+			{
+				historico = [];
+			}
+			historico.push(novoExercicio);
+			localStorage.setItem("Historico", JSON.stringify(historico));
+		}
+	)
+
 }
 
-app.value = function(elementId, value)
-{
-	document.getElementById(elementId).innerHTML = value;
-}
+
 
 // Initialize the app.
 

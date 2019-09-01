@@ -33,30 +33,25 @@
 		<img src="ui/images/arrow-back.png" width="20" height="20" />
 	</button>
 
-
-	<table id="customers">
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroFit</h1>
+	<h2 style="font-family: Trebuchet MS;text-align:center;color:white">Histórico de Exercícios</h2>
+	
+	<br></br>
+	<table id="tabela">
 		<tr>
-		  <th>Company</th>
-		  <th>Contact</th>
-		  <th>Country</th>
-		  
+		<th>Data</th>
+		<th>Distância (metros)</th>
+		<th>Duração</th>
 		</tr>
-		<tr>
-		  <td>Alfreds Futterkiste</td>
-		  <td>Maria Anders</td>
-		  <td>Germany</td>
-		</tr>
-		<tr>
-		  <td>Centro comercial Moctezuma</td>
-		  <td>Francisco Chang</td>
-		  <td>Mexico</td>
-	  </table>
+	</table>
 
-	<h1>Historico de Exercicios!</h1>
+	
 
-	<div id="historico">
-	</div>
+	<div id="mensagemHistoricoVazio"></div>
+	
+	<br /><br />
 
+	<button onclick="ApagarHistorico()" class="botaoMenu" id="botaoCancelar" >Apagar Histórico</button>
 
 
 
@@ -64,35 +59,42 @@
 
 
 <script>
+
 	var historico = JSON.parse(localStorage.getItem("Historico"));
-	var labels = ["Data do exercicio: ","Numero de passos: ","Distancia percorrida: ","Duração do Exercicio: "]
+	var tabela = document.getElementById("tabela");
+	//var labels = ["Data do exercicio: ","Numero de passos: ","Distancia percorrida: ","Duração do Exercicio: "]
 	if (historico == null)
 	{
-		var paragraph = document.createElement("p");
-		paragraph.innerHTML = "Histórico vazio";
-  		document.getElementById("historico").appendChild(paragraph);
+		tabela.style.display="none";
+		var texto = document.createElement("h1");
+		texto.innerHTML = "Histórico vazio";
+		texto.classList.add('fonteDefault');
+  		document.getElementById("mensagemHistoricoVazio").appendChild(texto);
 	}
 	else
 	{
+		tabela.style.display="block";
 		var i =0;
-		var j =0;
 		var numExs = historico.length;
 		console.log(historico)
 		for(i=0;i<numExs;i++)
 		{
-			for(j=0;j<4;j++)
-			{
-				var dado = document.createElement("p");
-				dado.innerHTML = labels[j] + historico[i][j];
-				document.getElementById("historico").appendChild(dado);
-
-			}
-			var lineBreak = document.createElement("br");
-			document.getElementById("historico").appendChild(lineBreak);
-			
-			
-		}
+			var linha = tabela.insertRow(1);
+			var col1 = linha.insertCell(0);
+			var col2 = linha.insertCell(1);
+			var col3 = linha.insertCell(2);
+			col1.innerHTML = historico[i][0];
+			col2.innerHTML = historico[i][1];
+			col3.innerHTML = historico[i][2];
+		}	
 	}
+
+	function ApagarHistorico()
+	{
+		localStorage.removeItem("Historico");
+		window.location.href='index.html';
+	}
+
 
 </script>
 </html>

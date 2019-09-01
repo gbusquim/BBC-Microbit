@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+        {% load staticfiles %}
+        <!-- <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+    <body style="background-color:black;color:grey">
+
+        <div id="div1" style="height: 400px;overflow-y:hidden;font-family: Lucida Sans" >
+        </div>
+
+    </body>
+    <script>
+
+
+var terminalDiv = document.getElementById("div1");
+// function LeCom()
+// {
+//     setInterval(function()
+//     { 
+//         $.ajax
+//         ({
+//             type: "GET",
+//             url: "/meuRequest",
+//             success: function(data)
+//             {
+//                 if(data !='')
+//                 {
+//                     if(data == 'A+B')
+//                         data = 'A + B'
+//                     var para = document.createElement("p");
+//                     var node = document.createTextNode(">> Você pressionou " + data +  " !");
+//                     para.appendChild(node);
+//                     var element = document.getElementById("div1");
+//                     element.appendChild(para);
+//                     shouldScroll = terminalDiv.scrollTop + terminalDiv.clientHeight === terminalDiv.scrollHeight;
+//                     if (!shouldScroll) 
+//                     {
+//                         terminalDiv.scrollTop = terminalDiv.scrollHeight;
+//                     }
+
+//                 }
+//             }    
+//         });
+//     }, 200);           
+// }
+    //window.onload = LeCom; 
+    </script>
+</html>

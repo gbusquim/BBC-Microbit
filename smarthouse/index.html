@@ -44,17 +44,15 @@
 		Enviar Comandos 
 	</button>
 
-	<!-- <button onclick="app.onStopButton()" class="botaoMenu">
+	 <button onclick="app.onStopButton()" class="botaoMenu">
 			Encerrar
-		</button> -->
+		</button> 
 		<!-- <button onclick="app.printPhoneModel()" class="green">
 				Teste
 			</button> -->
 			<br>
-	<p>
-		<strong>Status da conexão:</strong> <span id="Status"></span>
-	</p>
-	<div id="escreverMensagem" style="display: none">
+	<h2  id ="Status" style="font-family: Trebuchet MS;text-align:center;margin-top: -20px"></h2>
+
 
 	<!-- <p>
 		<button onclick="app.printPhoneModel()" class="charcoal">enviar!</button>
@@ -67,14 +65,10 @@
 
 
 <script>
-var UARTstring = localStorage.getItem("UART");
-if(UARTstring==null)
-{
-	var newString = ""
-	localStorage.setItem("UART", newString);
-}
-console.log("Valor é "+ UARTstring)
 
+console.log("Temp: "+ localStorage.getItem("UARTtemp"));
+console.log("Luz: "+ localStorage.getItem("UARTluz"))
+//localStorage.removeItem("UART");
 //localStorage.setItem("key", a);
 
 </script>

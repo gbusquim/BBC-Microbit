@@ -46,7 +46,7 @@ app.showInfo = function(info)
 
 app.onStartButton = function()
 {
-	//app.onStopButton();
+	app.onStopButton();
 	app.startScan();
 	app.showInfo('Status: Scanning...');
 	app.startConnectTimer();
@@ -87,7 +87,7 @@ app.startScan = function()
 			// Connect if we have found an Microbit.
 			if (app.deviceIsMicrobit(device))
 			{
-				app.showInfo('Status: Device found: ' + device.name + '.');
+				app.showInfo('Dispositivo encontrado, enviando comandos...');
 				evothings.easyble.stopScan();
 				app.connectToDevice(device);
 				app.stopConnectTimer();
@@ -95,7 +95,7 @@ app.startScan = function()
 		},
 		function(errorCode)
 		{
-			app.showInfo('Error: startScan: ' + errorCode + '.');
+			app.showInfo('A conexão não foi estabelecida, por favor tente novamente.');
 		});
 }
 
@@ -113,7 +113,8 @@ app.deviceIsMicrobit = function(device)
  */
 app.connectToDevice = function(device)
 {
-	app.showInfo('Connecting...');
+	//app.showInfo('Connecting...');
+	setTimeout(function(){
 	device.connect(
 		function(device)
 		{
@@ -123,9 +124,10 @@ app.connectToDevice = function(device)
 		},
 		function(errorCode)
 		{
-			app.showInfo('Error: Connection failed: ' + errorCode + '.');
+			app.showInfo('A conexão não foi estabelecida, por favor tente novamente.');
 			evothings.ble.reset();
 		});
+},1000);
 }
 
 
@@ -135,13 +137,13 @@ app.readServices = function(device)
 		[app.microbit.UART_SERVICE],
 		function(device)
     {
-		app.showInfo('Comandos enviados.');
+		app.showInfo('Comandos enviados!');
 			app.device = device;
 			app.sendMessage();
     },
 		function(errorCode)
 		{
-			console.log('Error: Failed to read services: ' + errorCode + '.');
+			console.log('A conexão não foi estabelecida, por favor tente novamente.');
 		});
 		
 } 
@@ -152,14 +154,24 @@ app.sendMessage = function()
 	console.log("printando a mensagem");
 	//var a =[0x1,0x2,0,0x3,0x4];
 
-	minhaString = localStorage.getItem("UART");
-	//minhaString = "Lm2$LM200$"
-	console.log(minhaString);
-	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(minhaString));
+	UARTluz = localStorage.getItem("UARTluz");
+	UARTtemp = localStorage.getItem("UARTtemp");
+	var UARTfinal = "";
+	if(UARTluz==null && UARTtemp!=null)
+		UARTfinal=UARTtemp;
+	else if(UARTluz!=null && UARTtemp==null)
+		UARTfinal=UARTluz;
+	else if (UARTluz!=null && UARTtemp!=null)
+		UARTfinal=UARTluz+UARTtemp;
+	console.log(UARTfinal);
+	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTluz));
+	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTtemp));
+	//app.onStopButton();
 	
 }
 
 app.writeCharacteristic = function(device, characteristicUUID, value) {
+	setTimeout(function(){
 	device.writeCharacteristic(
 		characteristicUUID,
 		new Uint8Array(value),
@@ -171,12 +183,8 @@ app.writeCharacteristic = function(device, characteristicUUID, value) {
 		{
 			console.log('Error: writeCharacteristic: ' + errorCode + '.');
 		});
-}
+},1000);}
 
-// app.value = function(elementId, value)
-// {
-// 	document.getElementById(elementId).innerHTML = value;
-// }
 
 // Initialize the app.
 app.initialize();

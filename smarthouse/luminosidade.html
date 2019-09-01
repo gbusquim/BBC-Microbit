@@ -62,7 +62,7 @@
 		<img src="ui/images/lightOff.png" width="100" height="100"style="margin-right:20px" />
 		<select  class="dropdown" id="myInput2">
 			<option value="255">Nenhum</option>
-			<option value="150">Luz externa média</option>
+			<option value="120">Luz externa média</option>
 			<option value="200">Luz externa alta</option>
 		</select>
 	</div>
@@ -78,21 +78,26 @@
 <script>
 	function SaveLuminosity()
 	{
-		var stringUART = localStorage.getItem("UART");
 		var valueInput1 = document.getElementById("myInput1").value;
 		var valueInput2 = document.getElementById("myInput2").value;
-		if(valueInput1!="0")
+		var stringUART = "";
+		if(valueInput1=="0" && valueInput2=="255")
+			localStorage.removeItem("UARTluz");
+		else
 		{
-			stringUART = stringUART + "Lm" + valueInput1 + "$" 
+
+			
+			if(valueInput1!="0")
+			{
+				stringUART = stringUART + "Lm" + valueInput1 + "$" 
+			}
+			if(valueInput2!="255")
+			{
+				stringUART = stringUART + "LM" + valueInput2 + "$" 
+			}
+			localStorage.setItem("UARTluz",stringUART);
 		}
-		if(valueInput2!="255")
-		{
-			stringUART = stringUART + "LM" + valueInput2 + "$" 
-		}
-		localStorage.setItem("UART",stringUART);
-		window.location.href='index.html'
-		//var b = localStorage.getItem("key");
-		//document.getElementById("teste").innerHTML = b;
+		window.location.href='index.html';
 	}
 </script>
 </html>

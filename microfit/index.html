@@ -35,13 +35,16 @@
 	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroFit</h1>
 	<br>
 	<br>
+	<br>
 	<button onclick="window.location.href='historico.html'" class="botaoMenu">Histórico de exercícios</button>
+	<br>
+	<br>
 	<br>
 	<!-- <br>
 	<button onclick="ApagarHistorico()" class="red">Apagar Historico</button>
 	<br> -->
 	<button onclick="app.onStartButton()" class="botaoMenu">
-		Obter exercicios
+		Obter exercícios
 	</button>
 	<!-- <p>
 	Numero de passos dados: <span id="NumPassos"></span>
@@ -53,22 +56,16 @@
 
 <p>
 	Duracao do Exercicio:<span id="DuracaoExercicio"></span>
-</p>
+</p>-->
 	<button onclick="app.onStopButton()" class="green">
 			Encerrar
-		</button> -->
+		</button> 
 
-	<p>
-		<strong>Status da conexão:</strong> <span id="Status"></span>
-	</p>
+	<h2  id = "Status" style="font-family: Trebuchet MS;text-align:center;margin-top: -20px ;color:white"></h2>
 
 
 <script>
-function ApagarHistorico()
-{
-	localStorage.removeItem("Historico");
-	document.getElementById("Status").innerHTML="Historico removido!";
-}
+
 
 
 </script>
