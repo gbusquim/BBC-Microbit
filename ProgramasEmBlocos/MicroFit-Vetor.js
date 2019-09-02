@@ -13,7 +13,7 @@ bluetooth.onBluetoothConnected(function () {
     numeroExercicios = quantPassos.length
     mensagemFinal = ""
     for (let index = 0; index <= numeroExercicios; index++) {
-        mensagemFinal = "" + mensagemFinal + quantPassos[index] + "$" + temposDecorridos[index] + "$"
+        mensagemFinal = "" + mensagemFinal + convertToText(quantPassos[index]) + "$" + convertToText(temposDecorridos[index]) + ","
     }
     bluetooth.uartWriteString(mensagemFinal)
 })
@@ -42,6 +42,7 @@ let tempoInicial = 0
 let tempoFinal = 0
 let numPassos = 0
 let modoExercicio = 0
+basic.clearScreen()
 bluetooth.startUartService()
 modoExercicio = 0
 numPassos = 0
