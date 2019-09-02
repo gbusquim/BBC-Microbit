@@ -57,25 +57,35 @@
 
 
 <script>
+
+	var input1 = document.getElementById("myInput1");
+	var input2 = document.getElementById("myInput2");
+
+	var stringTemp = localStorage.getItem("UARTtemp").split("$");
+	var menorTemp = stringTemp[0].slice(2,stringTemp[0].length)
+	var maiorTemp = stringTemp[1].slice(2,stringTemp[1].length)
+	if(menorTemp != "-10")
+		input2.value = menorTemp;
+	if(maiorTemp != "600")
+		input1.value = maiorTemp;
+	
 	function SaveTemperature()
 	{
 		var stringUART = "";
-		var valueInput1 = document.getElementById("myInput1").value;
-		var valueInput2 = document.getElementById("myInput2").value;
-		if(valueInput1=="" && valueInput2=="")
-			localStorage.removeItem("UARTtemp");
-		else
+		var valueInput1 = input1.value;
+		var valueInput2 = input2.value;
+		if(valueInput1=="")
 		{
-			if(valueInput1!="")
-			{
-				stringUART = stringUART + "Tm" + valueInput1 + "$" 
-			}
-			if(valueInput2!="")
-			{
-				stringUART = stringUART + "TM" + valueInput2 + "$" 
-			}
-			localStorage.setItem("UARTtemp",stringUART);
+			valueInput1="600";
 		}
+		if(valueInput2=="")
+		{
+				stringUART = stringUART + "Tm" + valueInput1 + "$" 
+			valueInput2="-10";
+		}
+		stringUART = stringUART + "Tm" + valueInput2 + "$" ;
+		stringUART = stringUART + "TM" + valueInput1 + "$" ;
+		localStorage.setItem("UARTtemp",stringUART);
 		window.location.href='index.html'
 	}
 </script>

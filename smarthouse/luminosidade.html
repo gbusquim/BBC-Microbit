@@ -52,7 +52,7 @@
 	<div style="margin:auto;display:block;text-align: center">
 		<img src="ui/images/lightOn.png" width="100" height="100"style="margin-right:20px" />
 		<select class="dropdown" id="myInput1" >
-			<option value="0">Nenhum</option>
+			<option value="-10">Nenhum</option>
 			<option value="100">Luz externa baixa</option>
 			<option value="50">Luz externa muito baixa</option>
 			<option value="10">Ausência de luz externa</option>
@@ -61,7 +61,7 @@
 	<div style="margin:auto;display:block;text-align: center">
 		<img src="ui/images/lightOff.png" width="100" height="100"style="margin-right:20px" />
 		<select  class="dropdown" id="myInput2">
-			<option value="255">Nenhum</option>
+			<option value="600">Nenhum</option>
 			<option value="120">Luz externa média</option>
 			<option value="200">Luz externa alta</option>
 		</select>
@@ -76,27 +76,25 @@
 
 
 <script>
+
+	var input1 = document.getElementById("myInput1");
+	var input2 = document.getElementById("myInput2");
+
+	var stringLuz = localStorage.getItem("UARTluz").split("$");
+	var menorLuz = stringLuz[0].slice(2,stringLuz[0].length);
+	var maiorLuz = stringLuz[1].slice(2,stringLuz[1].length);
+	input1.value = menorLuz;
+	input2.value = maiorLuz;
+
+
 	function SaveLuminosity()
 	{
-		var valueInput1 = document.getElementById("myInput1").value;
-		var valueInput2 = document.getElementById("myInput2").value;
+		var valueInput1 = input1.value;
+		var valueInput2 = input2.value;
 		var stringUART = "";
-		if(valueInput1=="0" && valueInput2=="255")
-			localStorage.removeItem("UARTluz");
-		else
-		{
-
-			
-			if(valueInput1!="0")
-			{
-				stringUART = stringUART + "Lm" + valueInput1 + "$" 
-			}
-			if(valueInput2!="255")
-			{
-				stringUART = stringUART + "LM" + valueInput2 + "$" 
-			}
-			localStorage.setItem("UARTluz",stringUART);
-		}
+		stringUART = stringUART + "Lm" + valueInput1 + "$" 
+		stringUART = stringUART + "LM" + valueInput2 + "$" 
+		localStorage.setItem("UARTluz",stringUART);
 		window.location.href='index.html';
 	}
 </script>

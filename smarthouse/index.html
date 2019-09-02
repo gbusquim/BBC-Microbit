@@ -54,9 +54,6 @@
 	<h2  id ="Status" style="font-family: Trebuchet MS;text-align:center;margin-top: -20px"></h2>
 
 
-	<!-- <p>
-		<button onclick="app.printPhoneModel()" class="charcoal">enviar!</button>
-	</p> -->
 
 </div>
 
@@ -65,7 +62,22 @@
 
 
 <script>
-
+var UARTtemp = localStorage.getItem("UARTtemp");
+var UARTluz = localStorage.getItem("UARTluz");
+if(UARTtemp==null)
+{
+	var stringTemp = "";
+	stringTemp = stringTemp + "TM" + "600" + "$" ;
+	stringTemp = stringTemp + "Tm" + "-10" + "$" ;
+	localStorage.setItem("UARTtemp",stringTemp);
+}
+if(UARTluz==null)
+{
+	var stringLuz = "";
+	stringLuz = stringLuz + "LM" + "600" + "$" ;
+	stringLuz = stringLuz + "lm" + "-10" + "$" ;
+	localStorage.setItem("UARTluz",stringLuz);
+}
 console.log("Temp: "+ localStorage.getItem("UARTtemp"));
 console.log("Luz: "+ localStorage.getItem("UARTluz"))
 //localStorage.removeItem("UART");

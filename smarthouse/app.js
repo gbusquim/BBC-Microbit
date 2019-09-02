@@ -156,14 +156,6 @@ app.sendMessage = function()
 
 	UARTluz = localStorage.getItem("UARTluz");
 	UARTtemp = localStorage.getItem("UARTtemp");
-	var UARTfinal = "";
-	if(UARTluz==null && UARTtemp!=null)
-		UARTfinal=UARTtemp;
-	else if(UARTluz!=null && UARTtemp==null)
-		UARTfinal=UARTluz;
-	else if (UARTluz!=null && UARTtemp!=null)
-		UARTfinal=UARTluz+UARTtemp;
-	console.log(UARTfinal);
 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTluz));
 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTtemp));
 	//app.onStopButton();
