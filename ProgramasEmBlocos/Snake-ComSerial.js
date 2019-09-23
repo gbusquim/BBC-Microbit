@@ -1,13 +1,5 @@
-let txt = ""
-let pontuacao = 0
-input.onButtonPressed(Button.B, function () {
-    serial.writeString("B")
-})
-input.onButtonPressed(Button.A, function () {
-    serial.writeString("A")
-})
-basic.forever(function () {
-    txt = serial.readString()
+serial.onDataReceived(serial.delimiters(Delimiters.Dollar), function () {
+    txt = serial.readUntil(serial.delimiters(Delimiters.Dollar))
     if (txt == "start") {
         basic.showNumber(pontuacao)
     } else if (txt == "comeu") {
@@ -18,3 +10,13 @@ basic.forever(function () {
         pontuacao = 0
     }
 })
+input.onButtonPressed(Button.B, function () {
+    serial.writeString("B")
+})
+input.onButtonPressed(Button.A, function () {
+    serial.writeString("A")
+})
+let txt = ""
+let pontuacao = 0
+pontuacao = 0
+basic.showNumber(pontuacao)

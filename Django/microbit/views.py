@@ -5,7 +5,7 @@ import serial
 import random
 
 
-serialPort = serial.Serial('com3',115200,timeout = 0.6)
+serialPort = serial.Serial('com3',115200,timeout = 0.8)
 serialPort.close()
 # Create your views here
 
@@ -35,6 +35,7 @@ def EscreveRequest(request):
     if not serialPort.isOpen():
         serialPort.open()
     valor = request.POST.get("message")
+    print(valor)
     serialPort.write(valor.encode('utf-8'))
     serialPort.close()
     return HttpResponse("success")

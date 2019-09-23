@@ -127,7 +127,7 @@
       frameRequest=requestAnimationFrame(loop);
 
       //reduz velocidade do jogo
-      if (++count < 7) 
+      if (++count < 15) 
       {
         return;
       }
@@ -178,7 +178,7 @@
       canvasContext.fillRect(apple.x, apple.y, grid-1, grid-1);
     
       // desenha a cobra
-      canvasContext.fillStyle = 'green';
+      canvasContext.fillStyle = 'lightgreen';
 
       //funcao para cada parte do corpo da cobra
       snake.cells.forEach(function(cell, index) {
@@ -193,7 +193,7 @@
           snake.maxCells++;
           sendData("comeu");
           pontos = pontos + 1;
-          // canvas is 400x400 which is 25x25 grids 
+
           apple.x = getRandomInt(0, 25) * grid;
           apple.y = getRandomInt(0, 25) * grid;
         }
@@ -212,11 +212,12 @@
 
     function sendData(message)
     {
+      var customMessage = message + '$';
       $.ajax({
               url: "escreveRequest/",
               type: "POST", 
               data: {
-                  message: message,
+                  message: customMessage,
                   csrfmiddlewaretoken: '{{ csrf_token }}'
                   }
           });
@@ -274,7 +275,7 @@
             });         
     } 
 
-    setInterval(LeComSerial,500);
+    setInterval(LeComSerial,700);
 
     function moveUp()
     {
