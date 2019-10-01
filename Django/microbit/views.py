@@ -6,7 +6,8 @@ import random
 
 
 serialPort = serial.Serial('com3',115200,timeout = 0.8)
-serialPort.close()
+isWriting = False
+#serialPort.close()
 # Create your views here
 
 def Home(request):
@@ -24,20 +25,24 @@ def ComSerial(request):
 
 def trataRequest(request):
     valor = ''
-    if not serialPort.isOpen():
-        serialPort.open()
+    #if not serialPort.isOpen():
+        #serialPort.open()
+    if isWriting == False:
         valor = serialPort.read(1).decode("utf-8")
         print(valor)
-        serialPort.close()
+    #serialPort.close()
     return HttpResponse(valor)
 
 def EscreveRequest(request):
-    if not serialPort.isOpen():
-        serialPort.open()
+    global isWriting
+    #if not serialPort.isOpen():
+       # serialPort.open()
+    isWriting = True
     valor = request.POST.get("message")
     print(valor)
     serialPort.write(valor.encode('utf-8'))
-    serialPort.close()
+    #serialPort.close()
+    isWriting = False
     return HttpResponse("success")
 
 
