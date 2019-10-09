@@ -82,7 +82,7 @@
     {
       if (!frameRequest)
       {
-        sendData("start");
+        sendData("inicioJogo.");
         jogoStart = true;
         snake.x = 160;
         snake.y = 160;
@@ -100,7 +100,7 @@
     {
       if (frameRequest) 
       {
-        sendData("gameOver");
+        sendData("fimJogo.");
         jogoStart = false;
         canvasContext.fillStyle = 'black';
         canvasContext.fillRect(0,0,canvas.width,canvas.height);
@@ -191,7 +191,7 @@
         if (cell.x === apple.x && cell.y === apple.y) 
         {
           snake.maxCells++;
-          sendData("comeu");
+          sendData("aumentoPontuacao.");
           pontos = pontos + 1;
 
           apple.x = getRandomInt(0, 25) * grid;
@@ -212,12 +212,11 @@
 
     function sendData(message)
     {
-      var customMessage = message + '$';
       $.ajax({
               url: "escreveRequest/",
               type: "POST", 
               data: {
-                  message: customMessage,
+                  message: message,
                   csrfmiddlewaretoken: '{{ csrf_token }}'
                   }
           });
