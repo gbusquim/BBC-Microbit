@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>MicroHouse - Controle de Luminosidade</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/easyble/easyble.js"></script>
+	<script src="libs/evothings/util/util.js"></script>
+	<script src="app.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+
+	<button style="position: absolute;top:10px;left:5px;" onclick="history.back()">
+		<img src="ui/images/arrow-back.png" width="20" height="20" />
+	</button>
+
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroHouse</h1>
+	<h3 style="font-family: Trebuchet MS;text-align:center;">Controle de Luminosidade</h3>
+	<h2 style="font-family: Trebuchet MS;text-align:center;">Defina a luminosidade para acender ou apagar a luz automaticamente </h2>
+
+	<!-- <p>Controle por Luminosidade</p> -->
+
+
+	<!-- <input type="checkbox" id="checkbox1" >Acender luz se luminosidade for menor do que:<br>
+	<input  type="text" id="myInput1" style="height:10px;" width="8" placeholder="Valor"><br>
+	<br>
+	<input type="checkbox" id="checkbox2" >Acender luz se luminosidade for maior do que:<br>
+	<input  type="text" id="myInput2" style="height:10px;" width="8" placeholder="Valor"><br>
+	<br>
+	<button onclick="SaveLuminosity()" class="green">Salvar</button> -->
+	<br>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/lightOn.png" width="100" height="100"style="margin-right:20px" />
+		<select class="dropdown" id="myInput1" >
+			<option value="-10">Nenhum</option>
+			<option value="100">Luz externa baixa</option>
+			<option value="50">Luz externa muito baixa</option>
+			<option value="10">Ausência de luz externa</option>
+		</select>
+	</div>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/lightOff.png" width="100" height="100"style="margin-right:20px" />
+		<select  class="dropdown" id="myInput2">
+			<option value="600">Nenhum</option>
+			<option value="120">Luz externa média</option>
+			<option value="200">Luz externa alta</option>
+		</select>
+	</div>
+
+	<button onclick="SaveLuminosity()" class="botaoMenu" style="width: 200px" >
+		Salvar
+	</button>
+	
+
+</body>
+
+
+<script>
+
+	var input1 = document.getElementById("myInput1");
+	var input2 = document.getElementById("myInput2");
+
+	var stringLuz = localStorage.getItem("UARTluz").split("$");
+	var menorLuz = stringLuz[0].slice(2,stringLuz[0].length);
+	var maiorLuz = stringLuz[1].slice(2,stringLuz[1].length);
+	input1.value = menorLuz;
+	input2.value = maiorLuz;
+
+
+	function SaveLuminosity()
+	{
+		var valueInput1 = input1.value;
+		var valueInput2 = input2.value;
+		var stringUART = "";
+		stringUART = stringUART + "Lm" + valueInput1 + "$" 
+		stringUART = stringUART + "LM" + valueInput2 + "$" 
+		localStorage.setItem("UARTluz",stringUART);
+		window.location.href='index.html';
+	}
+</script>
+</html>

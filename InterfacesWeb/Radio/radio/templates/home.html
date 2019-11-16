@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>MicroRadio</title>
+
+      {% load static %}
+      <!-- <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+
+  <body style = "background-color: white">
+    <h1> MicroRadio</h1>
+
+   <span> <button onclick='pedirDados("t.")'> Temperatura</button>
+    <button onclick='pedirDados("l.")'> Luminosidade</button></span>
+
+<br/><br/>
+
+    <div id="mensagemEspera"></div>
+    <br/>
+    <table id="tabela">
+        <tr>
+        <th>Comôdo</th>
+        <th>Valor</th>
+        </tr>
+      </table>
+
+  </body>
+    
+<script>
+    var mensagemEspera = document.getElementById("mensagemEspera");
+    
+    mensagemEspera.style.display= "none";
+
+    function pedirDados(message)
+    {
+      mensagemEspera.style.display= "block";
+      mensagemEspera.innerHTML = "Obtendo valores, por favor aguarde.";
+      $.ajax({
+              url: "escreveRequest/",
+              type: "POST", 
+              data: {
+                  message: message,
+                  csrfmiddlewaretoken: '{{ csrf_token }}'
+                  }
+          });
+          setTimeout(lerDados,5000);
+    }
+
+
+
+    function lerDados()
+    {
+      $.ajax
+            ({
+                type: "GET",
+                url: "/meuRequest",
+                success: function(data)
+                {
+                  mensagemEspera.innerHTML = "Informações obtidas!";
+                   obterValores(data);
+                }    
+            });         
+    } 
+
+    function obterValores(mensagem)
+  {
+    console.log(mensagem);
+    var tabela = document.getElementById("tabela");
+    var numeroLinhas = tabela.rows.length;
+    var i =0;
+		for(i=numeroLinhas;i>1;i--)
+		{
+      tabela.deleteRow(i-1);
+		}
+
+    var valores = mensagem.split("$");
+    valores.pop();
+
+    console.log(valores);
+		for(i=0;i<valores.length;i++)
+		{
+      var valor = valores[i].split("-");
+			var linha = tabela.insertRow(1);
+			var col1 = linha.insertCell(0);
+			var col2 = linha.insertCell(1);
+			col1.innerHTML = valor[0];
+			col2.innerHTML = valor[1];
+
+
+		}	
+  }
+  
+
+</script>
+  
+
+</html>

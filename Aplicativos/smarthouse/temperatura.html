@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>MicroHouse - Controle de Temperatura</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/easyble/easyble.js"></script>
+	<script src="libs/evothings/util/util.js"></script>
+	<script src="app.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+
+	<button style="position: absolute;top:10px;left:5px;" onclick="history.back()">
+		<img src="ui/images/arrow-back.png" width="20" height="20" />
+	</button>
+
+	<h1 style="font-family: Trebuchet MS;text-align:center;margin-top: -20px">MicroHouse</h1>
+	<h3 style="font-family: Trebuchet MS;text-align:center;">Controle de Temperatura</h3>
+	<h2 style="font-family: Trebuchet MS;text-align:center;">Defina a temperatura limite para acender ou apagar o ar condicionado  </h2>
+
+	<br>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/airOn.png" width="100" height="100"style="margin-right:20px" />
+		<input id="myInput1" type="number" placeholder="Temp. para acender"  class="numberInput"/>
+	</div>
+	<div style="margin:auto;display:block;text-align: center">
+		<img src="ui/images/airOff.png" width="100" height="100"style="margin-right:20px" />
+		<input id="myInput2" type="number" placeholder="Temp. para apagar" class="numberInput" />
+	</div>
+	
+	<button onclick="SaveTemperature()" class="botaoMenu" style="width: 200px" >
+		Salvar
+	</button>
+	
+
+</body>
+
+
+<script>
+
+	var input1 = document.getElementById("myInput1");
+	var input2 = document.getElementById("myInput2");
+
+	var stringTemp = localStorage.getItem("UARTtemp").split("$");
+	var menorTemp = stringTemp[0].slice(2,stringTemp[0].length)
+	var maiorTemp = stringTemp[1].slice(2,stringTemp[1].length)
+	if(menorTemp != "-10")
+		input2.value = menorTemp;
+	if(maiorTemp != "600")
+		input1.value = maiorTemp;
+	
+	function SaveTemperature()
+	{
+		var stringUART = "";
+		var valueInput1 = input1.value;
+		var valueInput2 = input2.value;
+		if(valueInput1=="")
+		{
+			valueInput1="600";
+		}
+		if(valueInput2=="")
+		{
+			valueInput2="-10";
+		}
+		stringUART = stringUART + "Tm" + valueInput2 + "$" ;
+		stringUART = stringUART + "TM" + valueInput1 + "$" ;
+		localStorage.setItem("UARTtemp",stringUART);
+		window.location.href='index.html'
+	}
+</script>
+</html>
