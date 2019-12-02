@@ -35,7 +35,7 @@ function onConnect(context) {
 
 app.onDeviceReady = function()
 {
-	//app.showInfo("Este programa funcionará após o Microbit estiver conectado.");
+	
 }
 
 app.showInfo = function(info)
@@ -47,7 +47,6 @@ app.onStartButton = function()
 {
 	app.onStopButton();
 	app.startScan();
-	//app.showInfo('Status: Scanning...');
 	app.startConnectTimer();
 }
 
@@ -57,7 +56,7 @@ app.onStopButton = function()
 	app.stopConnectTimer();
 	evothings.easyble.stopScan();
 	evothings.easyble.closeConnectedDevices();
-	//app.showInfo('Status: Stopped.');
+
 }
 
 app.startConnectTimer = function()
@@ -67,8 +66,7 @@ app.startConnectTimer = function()
 	app.connectTimer = setTimeout(
 		function()
 		{
-			//app.showInfo('Status: Scanning... ' +
-			//	'Please start the Microbit.');
+
 		},
 		app.CONNECT_TIMEOUT)
 }
@@ -117,7 +115,7 @@ app.connectToDevice = function(device)
 	device.connect(
 		function(device)
 		{
-			//app.showInfo('Status: Connected - reading Microbit services...');
+	
 			app.readServices(device);
 		
 		},
@@ -160,7 +158,7 @@ app.writeNotificationDescriptor = function(device, characteristicUUID)
 
 app.startNotifications = function(device)
 {
-	//app.showInfo('Status: Starting notifications...');
+	
 
 
 	app.writeNotificationDescriptor(device, app.microbit.UART_TX_DATA);

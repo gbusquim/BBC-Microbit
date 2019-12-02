@@ -152,13 +152,13 @@ app.sendMessage = function()
 {
 
 	console.log("printando a mensagem");
-	//var a =[0x1,0x2,0,0x3,0x4];
+
 
 	UARTluz = localStorage.getItem("UARTluz");
 	UARTtemp = localStorage.getItem("UARTtemp");
 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTluz));
 	app.writeCharacteristic(app.device, app.microbit.UART_RX_DATA,evothings.ble.toUtf8(UARTtemp));
-	//app.onStopButton();
+
 	
 }
 
